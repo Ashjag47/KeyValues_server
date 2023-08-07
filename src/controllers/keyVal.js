@@ -7,11 +7,7 @@ const storeData = async (req, res) => {
     const data = await keyVal.storeData({ key, value });
     res.status(201).json(data);
   } catch (err) {
-    if (err instanceof HTTPError) {
-      res.status(err.statusCode).json(err.message);
-    } else {
-      res.status(500).json(err.message);
-    }
+    res.status(err.code).json({ message: err.message });
   }
 };
 
@@ -21,11 +17,7 @@ const getDataByKey = async (req, res) => {
     const data = await keyVal.getDataByKey(key);
     res.status(200).json(data);
   } catch (err) {
-    if (err instanceof HTTPError) {
-      res.status(err.statusCode).json(err.message);
-    } else {
-      res.status(500).json(err.message);
-    }
+    res.status(err.code).json({ message: err.message });
   }
 };
 
@@ -36,11 +28,7 @@ const updateDataByKey = async (req, res) => {
     const data = await keyVal.updateDataByKey({ key, value });
     res.status(200).json(data);
   } catch (err) {
-    if (err instanceof HTTPError) {
-      res.status(err.statusCode).json(err.message);
-    } else {
-      res.status(500).json(err.message);
-    }
+    res.status(err.code).json({ message: err.message });
   }
 };
 
@@ -50,11 +38,7 @@ const deleteDataByKey = async (req, res) => {
     const data = await keyVal.deleteDataByKey(key);
     res.status(200).json(data);
   } catch (err) {
-    if (err instanceof HTTPError) {
-      res.status(err.statusCode).json(err.message);
-    } else {
-      res.status(500).json(err.message);
-    }
+    res.status(err.code).json({ message: err.message });
   }
 };
 

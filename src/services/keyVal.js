@@ -10,16 +10,16 @@ const storeData = async ({ key, value }) => {
     };
     return response;
   } catch (err) {
-    if (err.name === "SequelizeUniqueConstraintError") {
+    if (err.errors[0].message === "key must be unique") {
       throw new HTTPError("KEY_EXISTS", 409);
     }
-    throw new HTTPError("INTERNAL_SERVER_ERROR", 500);
   }
 };
 
 const getDataByKey = async (key) => {
+  let data;
   try {
-    const data = await KeyVal.findOne({ where: { key } });
+    data = await KeyVal.findOne({ where: { key } });
     if (!data) {
       throw new HTTPError("KEY_NOT_FOUND", 404);
     }
@@ -32,16 +32,17 @@ const getDataByKey = async (key) => {
     };
     return response;
   } catch (err) {
-    if (err instanceof HTTPError) {
-      throw err;
+    if (!data) {
+      throw new HTTPError("KEY_NOT_FOUND", 404);
     }
     throw new HTTPError("INTERNAL_SERVER_ERROR", 500);
   }
 };
 
 const updateDataByKey = async ({ key, value }) => {
+  let data;
   try {
-    const data = await KeyVal.findOne({ where: { key } });
+    data = await KeyVal.findOne({ where: { key } });
     if (!data) {
       throw new HTTPError("KEY_NOT_FOUND", 404);
     }
@@ -53,16 +54,17 @@ const updateDataByKey = async ({ key, value }) => {
     };
     return response;
   } catch (err) {
-    if (err instanceof HTTPError) {
-      throw err;
+    if (!data) {
+      throw new HTTPError("KEY_NOT_FOUND", 404);
     }
     throw new HTTPError("INTERNAL_SERVER_ERROR", 500);
   }
 };
 
 const deleteDataByKey = async (key) => {
+  let data;
   try {
-    const data = await KeyVal.findOne({ where: { key } });
+    data = await KeyVal.findOne({ where: { key } });
     if (!data) {
       throw new HTTPError("KEY_NOT_FOUND", 404);
     }
@@ -73,8 +75,8 @@ const deleteDataByKey = async (key) => {
     };
     return response;
   } catch (err) {
-    if (err instanceof HTTPError) {
-      throw err;
+    if (!data) {
+      throw new HTTPError("KEY_NOT_FOUND", 404);
     }
     throw new HTTPError("INTERNAL_SERVER_ERROR", 500);
   }
