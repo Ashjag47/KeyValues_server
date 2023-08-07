@@ -28,7 +28,7 @@ const errorMessage = (message) => {
           "The provided key already exists in the database. To update an existing key, use the update API.",
       };
 
-    case "INVALID_TOKEN":
+    case "invalid token":
       return {
         ...errorResponse,
         code: "INVALID_TOKEN",
