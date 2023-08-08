@@ -42,6 +42,13 @@ const errorMessage = (message) => {
         message: "The provided key does not exist in the database.",
       };
 
+    case "jwt expired":
+      return {
+        ...errorResponse,
+        code: "INVALID_TOKEN",
+        message: "Invalid access token provided.",
+      };
+
     // More cases can be added here as needed.
 
     default:
