@@ -4,7 +4,7 @@ const keyValRouter = require("./src/routes/keyVal");
 const { tokenValidation } = require("./src/middlewares/authValidation");
 
 const app = express();
-const port = 3001;
+const port = 3000;
 
 app.use(cors());
 app.use(express.json());

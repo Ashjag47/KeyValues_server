@@ -5,7 +5,7 @@ const tokenValidation = async (req, res, next) => {
   try {
     const token = req.headers?.authorization;
     const verifyToken = await axios.post(
-      "http://localhost:3000/api/token/validate",
+      "http://server_auth:4000/api/token/validate",
       { token: "validating token" },
       { headers: { Authorization: token } }
     );
